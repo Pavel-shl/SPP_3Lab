@@ -1,0 +1,54 @@
+﻿<Window x:Class="Assembly_Viever.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Assembly_Viever"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="727.8" Width="1296.35" ResizeMode="NoResize">
+    <Grid Margin="3,6,3.6,10.4">
+        <Menu Margin="10,0,1178,647" >
+            <MenuItem Height="25" Width="85" Header="Menu" FontSize="14">
+                <MenuItem Header="Open assembly"  Command="{Binding OpenCommand}" FontSize="13" Height="20" Margin="0,0,-1.8,0"/>
+                <MenuItem Header="Close assembly"  Command="{Binding CloseCommand}" FontSize="13" Height="20" Margin="0,0,-1.8,0"/>
+                
+            </MenuItem>
+        </Menu>
+
+        <TreeView  ItemsSource = "{Binding namespaces}" Margin="0,40,0,-2.6" HorizontalAlignment="Left" Width="1275">
+            <TreeView.ItemTemplate>
+                
+
+                    <HierarchicalDataTemplate ItemsSource="{Binding Path = Classes}">
+                    <Label  Content="{Binding Path=Name}" FontSize="20"/>
+                   
+
+                    
+                    <HierarchicalDataTemplate.ItemTemplate>
+
+                        <HierarchicalDataTemplate ItemsSource="{Binding Path=Members}">
+                            <TextBlock  Foreground="DarkBlue" Text="{Binding Path =  Name}" FontSize="20"/>
+                            
+                            <HierarchicalDataTemplate.ItemTemplate>
+
+                                <HierarchicalDataTemplate ItemsSource="{Binding Path=Value}">
+                                    <TextBlock Foreground="DarkRed" FontSize="20" Text="{Binding Path=Key}" />
+                                    <HierarchicalDataTemplate.ItemTemplate>
+                                        <DataTemplate>
+                                            <TextBlock  FontSize="20" Text="{Binding MemberSignature}"/>
+                                        </DataTemplate>
+                                    </HierarchicalDataTemplate.ItemTemplate>
+                                </HierarchicalDataTemplate>
+                            </HierarchicalDataTemplate.ItemTemplate>
+                        </HierarchicalDataTemplate>
+                        
+                    </HierarchicalDataTemplate.ItemTemplate>
+                    
+
+                    
+                </HierarchicalDataTemplate>
+            </TreeView.ItemTemplate>
+        </TreeView>
+
+    </Grid>
+</Window>
